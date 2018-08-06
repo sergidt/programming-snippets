@@ -1,17 +1,3 @@
----
-layout: post
-title: A taste of my Typescript pearls
-date: 2017-05-16T00:00:00.000Z
-summary: >-
-  TypeScript is a typed superset of JavaScript. That means we can use its powerful syntax to help us write better, cleaner and more secure code without actually using Javascript.
-  In this article, we will get into some TypeScript examples that enlighten some of its greater features.
-categories:
-  - typescript
-tags:
-  - typescript
-author: sergi_dote
----
-
 TypeScript is a typed superset of JavaScript. I would like to share with you some of my preferred tips ans tricks that have made me love this language.
 
 
@@ -23,8 +9,7 @@ Using TypeScript, we can use the reduce function to safely access a property and
 
 Supose the following data model:
 
-{% highlight html %}
-{% raw %}
+```
 interface Person {
     fullName: string;
     address: Address;
@@ -52,26 +37,21 @@ let person: Person = {
         }
     }
 };
-{% endraw %}
-{% endhighlight %}
+```
 
 Now, if we want to access some property's value, we can write a new function that handles this for us:
 
-{% highlight html %}
-{% raw %}
+```
 function getPropertyValue(obj: any, keys: string): any {
     return keys.split('.').reduce((value, currentKey) => !!value ? value[currentKey] : value, obj);
 }
-{% endraw %}
-{% endhighlight %}
+```
 
 Using this function, we can safely navigate through the Object and access the value of whatever property we want, at whatever nested level: 
 
-{% highlight html %}
-{% raw %}
+```
     getPropertyValue(person, 'address.city.name');
-{% endraw %}
-{% endhighlight %}
+```
 
 Accessing a property's value is as easy as defining a dotted string notation as a second parameter to our function.
 
@@ -88,24 +68,20 @@ Using `keyof` operator we're effectively limiting parameters to be only accepted
 
 Finally, combining `keyof` with generics, we can create an improved and more powerful version of our new function: 
 
-{% highlight html %}
-{% raw %}
+```
 function updateProperties<T, K extends keyof T>(obj: T, props: Array<[K, any]>) {
     let newObject: T = Object.assign({}, obj);
 
     props.forEach(([k, v]: [K, any]) => newObject[k] = v);
     return newObject;
 }
-{% endraw %}
-{% endhighlight %}
+```
 
 Let's see our new function in action:
 
-{% highlight html %}
-{% raw %}
+```
 updateProperties(person, [['fullName', 'Sergi Dote Teixidor'], ['age', 37]]);
-{% endraw %}
-{% endhighlight %}
+```
 
 We can make of use tuples to indicate what properties we want to update. 
 
@@ -132,8 +108,7 @@ Using these assertions, you can simulate multiple inherintance.
 
 Supose the following model: 
 
-{% highlight js %}
-{% raw %}
+```
 class Base {
     public getName(): string {
         return 'i am a base class';
@@ -157,32 +132,27 @@ class Process extends Storage(Validation(Base)) {
         console.log('i am a process');
     }
 }
-{% endraw %}
-{% endhighlight %}
+```
 
 We can create a Process that effectively inherits the behaviour of multiple classes:
 
-{% highlight js %}
-{% raw %}
+```
 let process: Process = new Process();
 
 process.validate();
 process.save();
 console.log(process.getName());
-{% endraw %}
-{% endhighlight %}
+```
 
 Getting this output: 
 
-{% highlight html %}
-{% raw %}
+```
 
 i am a process
 (unknown) validated
 (unknown) JSON saved
 (unknown) i am a base class
-{% endraw %}
-{% endhighlight %}
+```
 
 
 ## Conclusion
