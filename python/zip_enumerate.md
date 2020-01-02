@@ -10,8 +10,7 @@ list(zip(['a', 'b', 'c'], [1, 2, 3])) would output [('a', 1), ('b', 2), ('c', 3)
 Like we did for range() we need to convert it to a list or iterate through it with a loop to see the elements.
 
 You could unpack each tuple in a for loop like this.
-"""
-
+```python
 letters = ['a', 'b', 'c']
 nums = [1, 2, 3]
 
@@ -21,14 +20,18 @@ In addition to zipping two lists together, you can also unzip a list into tuples
 
 some_list = [('a', 1), ('b', 2), ('c', 3)]
 letters, nums = zip(*some_list)
+```
 This would create the same letters and nums tuples we saw earlier.
 
-Enumerate
+## Enumerate
 enumerate is a built in function that returns an iterator of tuples containing indices and values of a list. You'll often use this when you want the index along with each element of an iterable in a loop.
 
+```python
 letters = ['a', 'b', 'c', 'd', 'e']
 for i, letter in enumerate(letters):
     print(i, letter)
+    
+```
 This code would output:
 
 0 a
